@@ -1,19 +1,21 @@
-const url = 'https://pixabay.com/api/?key=11478607-0eb32deca43fc9d409ff4f730&q=snow&image_type=photo';
-
-req = new XMLHttpRequest();
-req.open('GET', url, true);
-req.send();
-req.onload = () => {
-    req = JSON.parse(req.responseText);    
-    const img = document.querySelectorAll('.image');
+fetch('https://pixabay.com/api/?key=11478607-0eb32deca43fc9d409ff4f730&q=snow&image_type=photo')
+    .then(response => {
+    return response.json();
     
+})
+    .then(data => {
+    console.log(JSON.stringify(data));
+    
+    const mydata = data.hits[1].webformatURL;
+    console.log(mydata);
+
 const images = document.querySelectorAll('.image');
     
     for (let i = 0; i < images.length; i++) {
-        img[i].src = req.hits[i].webformatURL;
+        images[i].src = data.hits[i].webformatURL;
     }
 
-    let index = 1;
+ let index = 1;
     
     const showImage = (index) => {   
         for (let i = 0; i < images.length; i++) {
@@ -45,5 +47,4 @@ const images = document.querySelectorAll('.image');
     nextSlideButton.addEventListener('click', nextImage);
     previousSlideButton.addEventListener('click', previousSlide);
 
-}
-
+})
