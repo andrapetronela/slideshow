@@ -3,11 +3,8 @@ fetch('https://pixabay.com/api/?key=11478607-0eb32deca43fc9d409ff4f730&q=snow&im
     return response.json();
     
 })
-    .then(data => {
-    console.log(JSON.stringify(data));
-    
+    .then(data => {    
     const mydata = data.hits[1].webformatURL;
-    console.log(mydata);
 
 const images = document.querySelectorAll('.image');
     
@@ -19,9 +16,9 @@ const images = document.querySelectorAll('.image');
     
     const showImage = (index) => {   
         for (let i = 0; i < images.length; i++) {
-            images[i].style.display = 'none';
+            images[i].style.opacity = '0';
         }
-        images[index-1].style.display = 'block';
+        images[index-1].style.opacity = '1';
     }
     
     showImage(index);
