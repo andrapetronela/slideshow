@@ -4,14 +4,8 @@ req = new XMLHttpRequest();
 req.open('GET', url, true);
 req.send();
 req.onload = () => {
-    req = JSON.parse(req.responseText);
-    
-    console.log(req);
-    console.log(req.hits);
-    console.log(req.hits[0].webformatURL);
-    
+    req = JSON.parse(req.responseText);    
     const img = document.querySelectorAll('.image');
-    console.log(img);
     
 const images = document.querySelectorAll('.image');
     
@@ -21,36 +15,29 @@ const images = document.querySelectorAll('.image');
 
     let index = 1;
     
-    const initialImage = () => {
-        images[index-1].style.display = 'block';
-        console.log(index);
-        console.log(images[index]);
-    }
-    
-    initialImage();
-    
-    const nextImage = () => {
+    const showImage = (index) => {   
         for (let i = 0; i < images.length; i++) {
             images[i].style.display = 'none';
         }
-        images[index++].style.display = 'block';
-        console.log(index);
-        console.log(images[index]);
-        if (index >= images.length) {
-            index = 0;
+        images[index-1].style.display = 'block';
+    }
+    
+    showImage(index);
+    
+    const nextImage = () => {            
+        index++;
+        if (index > images.length) {
+            index = 1;
         }
+        showImage(index);
     }
         
     const previousSlide = () => {
-        for (let i = images.length-1; i >= 0; i--) {
-            images[i].style.display = 'none';
-        }
-        images[index--].style.display = 'block';
-        console.log(index);
-        console.log(images[index]);
-        if (index < 0) {
-            index = 5;
+        index--;
+        if (index < 1) {
+            index = images.length;
         } 
+        showImage(index);
     }
     
     const nextSlideButton = document.getElementById('right-button');
